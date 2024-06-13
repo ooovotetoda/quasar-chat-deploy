@@ -1,6 +1,6 @@
 <template>
-  <q-page class="welcome column items-center justify-center full-height">
-    <h1 class="title">{{ title }}</h1>
+  <q-page class="column items-center justify-center full-height">
+    <h1 class="title q-mb-xl">{{ title }}</h1>
     <q-form @submit.prevent="handleLogin" class="flex column justify-center">
       <q-input
         v-model="name"
@@ -71,10 +71,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.welcome {
-  font-family: 'Pixelify Sans', sans-serif;
-}
-
 @keyframes blink {
   50% {
     opacity: 0;
