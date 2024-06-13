@@ -14,6 +14,7 @@
         color="black"
         size="18px"
         label="Enter"
+        type="submit"
       />
     </q-form>
   </q-page>
