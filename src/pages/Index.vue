@@ -33,22 +33,11 @@ import { Message } from 'components/models'
 interface PageIndexData {
   name: string | null,
   msg: string,
-  messages: Message[]
+  messages: Message[],
+  ws: WebSocket | null
 }
 
-const messages: Message[] = [
-  { author: 'Dima', text: 'Hi!' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
-  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' }
-]
+const messages: Message[] = []
 
 export default defineComponent({
   name: 'PageIndex',
@@ -62,18 +51,49 @@ export default defineComponent({
         console.error('Navigation error:', error)
       })
     }
+
+    const ws = new WebSocket('ws://localhost:8080/ws')
+
+    ws.onopen = () => {
+      console.log('[open] Соединение установлено')
+      // ws.send(JSON.stringify({ author: 'John', text: 'Hello, World!' }))
+    }
+
+    ws.onmessage = (event: MessageEvent) => {
+      const message = JSON.parse(event.data as string) as Message
+      messages.push(message)
+    }
+
+    ws.onclose = (event: CloseEvent) => {
+      if (event.wasClean) {
+        console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`)
+      } else {
+        console.log('[close] Соединение прервано')
+      }
+    }
+
+    ws.onerror = (event: Event) => {
+      const errorMessage = (event as ErrorEvent).message || 'Unknown error'
+      console.log(`[error] ${errorMessage}`)
+    }
+
+    this.ws = ws
   },
   data (): PageIndexData {
     const name: string | null = sessionStorage.getItem('name')
     return {
       name,
       msg: '',
-      messages
+      messages,
+      ws: null
     }
   },
   methods: {
     handleSubmit (): void {
-      console.log('submit')
+      if (this.ws) {
+        this.ws.send(JSON.stringify({ author: this.name, text: this.msg }))
+        this.msg = ''
+      }
     }
   }
 })
