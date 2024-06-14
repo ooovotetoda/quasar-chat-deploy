@@ -37,7 +37,17 @@ interface PageIndexData {
 }
 
 const messages: Message[] = [
-  { author: 'Dima', text: 'Hi!' }
+  { author: 'Dima', text: 'Hi!' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' },
+  { author: 'Dima', text: 'loremipsumasdmf aslkdmfok;maslkdmflkasdmlkfmasl;kdfmkl;asmdkl;fmaslkdmflk;asmdlkfmlk;asdmlk;fmalksdmfkl;amsdklmfklasdmklfalksdmkflaskldmfklmasdklfmklasdklfasldkfmklasdkfmaskldmflkmlksa !' }
 ]
 
 export default defineComponent({
