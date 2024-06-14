@@ -3,7 +3,7 @@
     <q-page>
       <div class="container">
         <ChatComponent :messages="messages"/>
-        <q-form @submit.prevent="console.log('submit')">
+        <q-form @submit.prevent="handleSubmit">
           <div class="actions flex align-center justify-between">
             <q-input
               class="actions-input"
@@ -45,14 +45,12 @@ export default defineComponent({
   components: {
     ChatComponent: ChatComponent as unknown as Vue.ComponentOptions<Vue>
   },
-  async mounted (): Promise<void> {
+  mounted (): void {
     const name = sessionStorage.getItem('name')
-    try {
-      if (!name) {
-        await this.$router.push('/welcome')
-      }
-    } catch (error) {
-      console.error('Navigation error:', error)
+    if (!name) {
+      this.$router.push('/welcome').catch((error) => {
+        console.error('Navigation error:', error)
+      })
     }
   },
   data (): PageIndexData {
@@ -61,6 +59,11 @@ export default defineComponent({
       name,
       msg: '',
       messages
+    }
+  },
+  methods: {
+    handleSubmit (): void {
+      console.log('submit')
     }
   }
 })
