@@ -15,8 +15,9 @@
               class="col-2"
               color="black"
               size="18px"
-              label="Enter"
+              label="Send"
               type="submit"
+              :disable="isDisabled"
             />
           </div>
         </q-form>
@@ -94,6 +95,11 @@ export default defineComponent({
         this.ws.send(JSON.stringify({ author: this.name, text: this.msg }))
         this.msg = ''
       }
+    }
+  },
+  computed: {
+    isDisabled (): boolean {
+      return this.msg.length <= 0
     }
   }
 })
