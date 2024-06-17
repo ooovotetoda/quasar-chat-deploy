@@ -1,23 +1,25 @@
 <template>
-  <q-page class="column items-center justify-center full-height">
-    <h1 class="title q-mb-xl">{{ title }}</h1>
-    <q-form @submit.prevent="handleLogin" class="flex column justify-center">
-      <q-input
-        v-model="name"
-        placeholder="Name"
-        size="24px"
-        standout
-        class="q-mb-lg"
-        style="font-size: 18px"
-      />
-      <q-btn
-        color="black"
-        size="18px"
-        label="Enter"
-        type="submit"
-      />
-    </q-form>
-  </q-page>
+  <q-page-container>
+    <q-page class="column items-center justify-center full-height">
+      <h1 class="title q-mb-xl">{{ title }}</h1>
+      <q-form @submit.prevent="handleLogin" class="flex column justify-center">
+        <q-input
+          v-model="name"
+          placeholder="Name"
+          size="24px"
+          standout
+          class="q-mb-lg"
+          style="font-size: 18px"
+        />
+        <q-btn
+          color="black"
+          size="18px"
+          label="Enter"
+          type="submit"
+        />
+      </q-form>
+    </q-page>
+  </q-page-container>
 </template>
 
 <script lang="ts">
