@@ -5,8 +5,7 @@
       class="chat-empty"
     >Chat is empty. Send the first message!</p>
     <ul class="chat-list">
-      <!--  TODO: unique keys   -->
-      <li v-for="message in messages" :key="message.text">
+      <li v-for="message in messages" :key="message.id">
         <MessageComponent :message="message"/>
       </li>
     </ul>
