@@ -6,6 +6,7 @@
         <q-form @submit.prevent="handleSubmit">
           <div class="actions flex align-center justify-between">
             <q-input
+              ref="messageInput"
               class="actions-input"
               v-model="msg"
               standout
@@ -53,11 +54,10 @@ export default defineComponent({
       })
     }
 
-    const ws = new WebSocket('ws://localhost:8080/ws')
+    const ws = new WebSocket('wss://ooovotetoda-golang-chat-deploy-816c.twc1.net/ws')
 
     ws.onopen = () => {
       console.log('[open] Соединение установлено')
-      // ws.send(JSON.stringify({ author: 'John', text: 'Hello, World!' }))
     }
 
     ws.onmessage = (event: MessageEvent) => {
@@ -94,6 +94,9 @@ export default defineComponent({
       if (this.ws) {
         this.ws.send(JSON.stringify({ author: this.name, text: this.msg }))
         this.msg = ''
+        this.$nextTick(() => {
+          (this.$refs.messageInput as HTMLInputElement).focus()
+        })
       }
     }
   },
