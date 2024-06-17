@@ -1,5 +1,9 @@
 <template>
   <div class="chat">
+    <p
+      v-show="chatIsEmpty"
+      class="chat-empty"
+    >Chat is empty. Send the first message!</p>
     <ul class="chat-list">
       <!--  TODO: unique keys   -->
       <li v-for="message in messages" :key="message.text">
@@ -36,8 +40,8 @@ export default defineComponent({
     }
   },
   computed: {
-    messagesCount (): number {
-      return this.messages.length
+    chatIsEmpty (): boolean {
+      return this.messages.length === 0
     }
   }
 })
@@ -46,12 +50,21 @@ export default defineComponent({
 
 <style scoped>
 .chat {
+  position: relative;
   height: calc(100vh - 56px - 8px - 32px);
   padding: 12px;
   margin: 16px 0 8px 0;
   border-radius: 4px;
   font-size: 18px;
   overflow: scroll;
+
+  .chat-empty {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.5;
+  }
 
   .chat-list {
     list-style: none;
