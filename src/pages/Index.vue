@@ -107,6 +107,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.container {
+  padding-top: 16px;
+}
+
 .actions {
   gap: 8px;
 

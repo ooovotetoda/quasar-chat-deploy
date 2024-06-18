@@ -60,7 +60,7 @@ export default defineComponent({
   position: relative;
   height: calc(100vh - 56px - 8px - 32px);
   padding: 12px;
-  margin: 16px 0 8px 0;
+  margin-bottom: 8px;
   border-radius: 4px;
   font-size: 18px;
   overflow-y: auto;
