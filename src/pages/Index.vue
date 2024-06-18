@@ -39,8 +39,6 @@ interface PageIndexData {
   ws: WebSocket | null
 }
 
-const messages: Message[] = []
-
 export default defineComponent({
   name: 'PageIndex',
   components: {
@@ -62,7 +60,7 @@ export default defineComponent({
 
     ws.onmessage = (event: MessageEvent) => {
       const message = JSON.parse(event.data as string) as Message
-      messages.push(message)
+      this.messages.push(message)
     }
 
     ws.onclose = (event: CloseEvent) => {
@@ -85,7 +83,7 @@ export default defineComponent({
     return {
       name,
       msg: '',
-      messages,
+      messages: [],
       ws: null
     }
   },

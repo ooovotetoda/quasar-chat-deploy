@@ -1,5 +1,5 @@
 <template>
-  <div class="chat">
+  <div class="chat" ref="chat">
     <p
       v-show="chatIsEmpty"
       class="chat-empty"
@@ -36,15 +36,23 @@ export default defineComponent({
   methods: {
     increment (): void {
       this.clickCount += 1
+    },
+    scrollToBottom (): void {
+      const chat = this.$refs.chat as HTMLElement
+      if (chat) {
+        chat.scrollTop = chat.scrollHeight
+      }
     }
   },
   computed: {
     chatIsEmpty (): boolean {
       return this.messages.length === 0
     }
+  },
+  updated () {
+    this.scrollToBottom()
   }
 })
-
 </script>
 
 <style scoped>
@@ -55,7 +63,7 @@ export default defineComponent({
   margin: 16px 0 8px 0;
   border-radius: 4px;
   font-size: 18px;
-  overflow: scroll;
+  overflow-y: auto;
 
   .chat-empty {
     position: absolute;
