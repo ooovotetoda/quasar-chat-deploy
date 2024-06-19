@@ -1,121 +1,89 @@
 <template>
   <q-page-container>
-    <q-page>
-      <div class="container">
-        <ChatComponent :messages="messages"/>
-        <q-form @submit.prevent="handleSubmit">
-          <div class="actions flex align-center justify-between">
-            <q-input
-              ref="messageInput"
-              class="actions-input"
-              v-model="msg"
-              standout
-              style="font-size: 18px"
-            />
-            <q-btn
-              class="col-2"
-              color="black"
-              size="18px"
-              label="Send"
-              type="submit"
-              :disable="isDisabled"
-            />
-          </div>
-        </q-form>
-      </div>
+    <q-page class="column items-center justify-center full-height">
+      <h1 class="title q-mb-xl">{{ title }}</h1>
+      <q-form @submit.prevent="handleLogin" class="flex column justify-center">
+        <q-input
+          v-model="name"
+          placeholder="Name"
+          size="24px"
+          standout
+          class="q-mb-lg"
+          style="font-size: 18px"
+        />
+        <q-btn
+          color="black"
+          size="18px"
+          label="Enter"
+          type="submit"
+        />
+      </q-form>
     </q-page>
   </q-page-container>
 </template>
 
 <script lang="ts">
-import Vue, { defineComponent } from 'vue'
-import ChatComponent from 'components/Chat.vue'
-import { Message } from 'components/models'
+import { defineComponent } from 'vue'
 
 interface PageIndexData {
-  name: string | null,
-  msg: string,
-  messages: Message[],
-  ws: WebSocket | null
+  title: string;
+  name: string;
 }
 
 export default defineComponent({
   name: 'PageIndex',
-  components: {
-    ChatComponent: ChatComponent as unknown as Vue.ComponentOptions<Vue>
-  },
-  mounted (): void {
-    const name = sessionStorage.getItem('name')
-    if (!name) {
-      this.$router.push('/welcome').catch((error) => {
-        console.error('Navigation error:', error)
-      })
-    }
-
-    const ws = new WebSocket('wss://ooovotetoda-golang-chat-deploy-816c.twc1.net/ws')
-
-    ws.onopen = () => {
-      console.log('[open] Соединение установлено')
-    }
-
-    ws.onmessage = (event: MessageEvent) => {
-      const message = JSON.parse(event.data as string) as Message
-      this.messages.push(message)
-    }
-
-    ws.onclose = (event: CloseEvent) => {
-      if (event.wasClean) {
-        console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`)
-      } else {
-        console.log('[close] Соединение прервано')
-      }
-    }
-
-    ws.onerror = (event: Event) => {
-      const errorMessage = (event as ErrorEvent).message || 'Unknown error'
-      console.log(`[error] ${errorMessage}`)
-    }
-
-    this.ws = ws
-  },
   data (): PageIndexData {
-    const name: string | null = sessionStorage.getItem('name')
     return {
-      name,
-      msg: '',
-      messages: [],
-      ws: null
+      title: '',
+      name: ''
     }
   },
   methods: {
-    handleSubmit (): void {
-      if (this.ws) {
-        this.ws.send(JSON.stringify({ author: this.name, text: this.msg }))
-        this.msg = ''
-        this.$nextTick(() => {
-          (this.$refs.messageInput as HTMLInputElement).focus()
+    async handleLogin () {
+      if (this.name === '') {
+        this.$q.notify({
+          color: 'negative',
+          textColor: 'white',
+          message: 'Please enter your name',
+          icon: 'warning',
+          position: 'top',
+          timeout: 5000
         })
+        return
       }
+
+      sessionStorage.setItem('name', this.name)
+      await this.$router.push('/room/1')
     }
   },
-  computed: {
-    isDisabled (): boolean {
-      return this.msg.length <= 0
+  mounted () {
+    const titleText = 'Welcome to the chat!'
+    let index = 0
+    const printNextChar = () => {
+      if (index < titleText.length) {
+        this.title += titleText[index]
+        index++
+        setTimeout(printNextChar, 150)
+      }
     }
+
+    printNextChar()
   }
 })
 </script>
 
 <style scoped>
-.container {
-  padding-top: 16px;
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
-.actions {
-  gap: 8px;
-
-  .actions-input {
-    flex: 1;
+.title {
+  &::after {
+    content: '|';
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
   }
 }
 </style>

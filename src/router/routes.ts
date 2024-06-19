@@ -6,7 +6,7 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: '/welcome', component: () => import('pages/Welcome.vue') }
+      { path: '/room/:id', component: () => import('pages/Room.vue') }
     ]
   },
   {
