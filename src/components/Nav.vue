@@ -64,7 +64,7 @@ ul {
   }
 
   .nav-item_active {
-    background-color: #000000;
+    background-color: #000000 !important;
     color: #FFFFFF;
 
     &:hover {
