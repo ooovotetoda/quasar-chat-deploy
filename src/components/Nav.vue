@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <nav class="nav">
     <ul>
       <li v-for="room in rooms" :key="room">
         <router-link :to="`/chat/${room}`">
@@ -9,7 +9,7 @@
         </router-link>
       </li>
     </ul>
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">
