@@ -64,11 +64,11 @@ ul {
   }
 
   .nav-item_active {
-    background-color: rgb(0,0,0);
+    background-color: #000000;
     color: #FFFFFF;
 
     &:hover {
-      background-color: rgb(0,0,0);
+      background-color: #000000;
     }
   }
 }
