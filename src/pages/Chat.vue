@@ -3,9 +3,9 @@
     <q-page>
       <div class="container">
         <div class="wrapper">
-          <NavComponent/>
+          <NavComponent />
           <div class="full-width">
-            <ChatComponent :messages="messages"/>
+            <ChatComponent :messages="messages" />
             <q-form @submit.prevent="handleSubmit">
               <div class="actions flex align-center justify-between">
                 <q-input
@@ -86,9 +86,15 @@ export default defineComponent({
       }
 
       ws.onmessage = (event: MessageEvent) => {
-        const message = JSON.parse(event.data as string) as Message
-        console.log(message.room, typeof message.room, '|', this.room, typeof this.room)
-        if (message.room === this.room) this.messages.push(message)
+        const data: Message | Message[] = JSON.parse(event.data as string) as Message | Message[]
+        if (Array.isArray(data)) {
+          data.forEach(message => {
+            if (message.room === this.room) this.messages.push(message)
+          })
+        } else {
+          const message: Message = data
+          if (message.room === this.room) this.messages.push(message)
+        }
       }
 
       ws.onclose = (event: CloseEvent) => {
