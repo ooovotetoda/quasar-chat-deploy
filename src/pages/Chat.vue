@@ -32,7 +32,7 @@ import Vue, { defineComponent } from 'vue'
 import ChatComponent from 'components/Chat.vue'
 import { Message } from 'components/models'
 
-interface PageRoomData {
+interface PageChatData {
   name: string | null,
   msg: string,
   messages: Message[],
@@ -40,7 +40,7 @@ interface PageRoomData {
 }
 
 export default defineComponent({
-  name: 'PageRoom',
+  name: 'PageChat',
   components: {
     ChatComponent: ChatComponent as unknown as Vue.ComponentOptions<Vue>
   },
@@ -78,7 +78,7 @@ export default defineComponent({
 
     this.ws = ws
   },
-  data (): PageRoomData {
+  data (): PageChatData {
     const name: string | null = sessionStorage.getItem('name')
     return {
       name,

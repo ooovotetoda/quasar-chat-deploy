@@ -53,7 +53,7 @@ export default defineComponent({
       }
 
       sessionStorage.setItem('name', this.name)
-      await this.$router.push('/room/1')
+      await this.$router.push('/chat/1')
     }
   },
   mounted () {
