@@ -6,7 +6,7 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: '/chat/:id', component: () => import('pages/Chat.vue') }
+      { path: '/chat/:room', component: () => import('pages/Chat.vue') }
     ]
   },
   {

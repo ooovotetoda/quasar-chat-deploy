@@ -10,8 +10,13 @@ html, body {
   font-family: 'Pixelify Sans', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .container {
   width: 100%;
-  max-width: 740px;
+  max-width: 980px;
   margin: 0 auto;
 }
