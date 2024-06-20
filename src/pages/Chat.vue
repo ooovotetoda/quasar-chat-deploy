@@ -5,7 +5,7 @@
         <div class="wrapper">
           <NavComponent />
           <div class="full-width">
-            <ChatComponent :messages="messages" />
+            <ChatComponent :messages="messages" :is-loading-messages="isLoadingMessages"/>
             <q-form @submit.prevent="handleSubmit">
               <div class="actions flex align-center justify-between">
                 <q-input
@@ -42,6 +42,7 @@ interface PageChatData {
   name: string | null,
   msg: string,
   messages: Message[],
+  isLoadingMessages: boolean,
   ws: WebSocket | null,
   room: string
 }
@@ -69,6 +70,7 @@ export default defineComponent({
       name,
       msg: '',
       messages: [],
+      isLoadingMessages: true,
       ws: null,
       room: '1'
     }
@@ -79,10 +81,12 @@ export default defineComponent({
         this.ws.close()
       }
 
+      this.isLoadingMessages = true
       const ws = new WebSocket(`wss://ooovotetoda-golang-chat-deploy-816c.twc1.net/ws?room=${this.room}`)
 
       ws.onopen = () => {
         console.log('[open] Соединение установлено')
+        this.isLoadingMessages = false
       }
 
       ws.onmessage = (event: MessageEvent) => {
@@ -95,6 +99,7 @@ export default defineComponent({
           const message: Message = data
           if (message.room === this.room) this.messages.push(message)
         }
+        this.isLoadingMessages = false
       }
 
       ws.onclose = (event: CloseEvent) => {
@@ -108,6 +113,7 @@ export default defineComponent({
       ws.onerror = (event: Event) => {
         const errorMessage = (event as ErrorEvent).message || 'Unknown error'
         console.log(`[error] ${errorMessage}`)
+        this.isLoadingMessages = false
       }
 
       this.ws = ws

@@ -1,7 +1,16 @@
 <template>
   <div class="chat" ref="chat">
+    <q-circular-progress
+      v-if="isLoadingMessages"
+      class="chat-loader"
+      indeterminate
+      rounded
+      size="xl"
+      :thickness="0.3"
+      color="black"
+    />
     <p
-      v-show="chatIsEmpty"
+      v-else-if="chatIsEmpty"
       class="chat-empty"
     >Chat is empty. Send the first message!</p>
     <ul class="chat-list">
@@ -26,17 +35,13 @@ export default defineComponent({
     messages: {
       type: (Array as unknown) as PropType<Message[]>,
       default: () => [] as Message[]
-    }
-  },
-  data (): { clickCount: number } {
-    return {
-      clickCount: 0
+    },
+    isLoadingMessages: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    increment (): void {
-      this.clickCount += 1
-    },
     scrollToBottom (): void {
       const chat = this.$refs.chat as HTMLElement
       if (chat) {
@@ -64,6 +69,12 @@ export default defineComponent({
   border-radius: 4px;
   font-size: 18px;
   overflow-y: auto;
+
+  .chat-loader {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+  }
 
   .chat-empty {
     position: absolute;
