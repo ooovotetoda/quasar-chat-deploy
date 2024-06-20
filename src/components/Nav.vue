@@ -44,10 +44,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ul {
-  list-style-type: none;
-}
-
 .nav {
   width: 300px;
   border-radius: 4px;
