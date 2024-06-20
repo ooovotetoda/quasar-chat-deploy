@@ -54,6 +54,7 @@ ul {
 
   .nav-item {
     padding: 16px;
+    margin-bottom: 4px;
     border-radius: 4px;
     transition: all 0.1s ease-in-out;
 
