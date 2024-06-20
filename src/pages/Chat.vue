@@ -61,7 +61,6 @@ export default defineComponent({
       })
     }
 
-    this.room = this.$route.params?.room || '1'
     this.initWebSocket()
   },
   data (): PageChatData {
@@ -72,7 +71,7 @@ export default defineComponent({
       messages: [],
       isLoadingMessages: true,
       ws: null,
-      room: '1'
+      room: this.$route.params?.room || '1'
     }
   },
   methods: {

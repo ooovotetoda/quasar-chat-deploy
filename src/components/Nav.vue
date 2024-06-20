@@ -24,7 +24,7 @@ export default defineComponent({
   name: 'NavComponent',
   data (): NavComponentData {
     return {
-      currentRoom: '1',
+      currentRoom: this.$route.params?.room || '1',
       rooms: ['1', '2', '3', '4', '5']
     }
   },
