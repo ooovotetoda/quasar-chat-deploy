@@ -159,4 +159,10 @@ export default defineComponent({
     flex: 1;
   }
 }
+
+@media (max-width: 640px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}
 </style>

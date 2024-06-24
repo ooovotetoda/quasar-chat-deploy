@@ -1,10 +1,10 @@
 <template>
   <nav class="nav">
-    <ul>
+    <ul class="nav-list">
       <li v-for="room in rooms" :key="room">
         <router-link :to="`/chat/${room}`">
           <div class="nav-item" :class="{ 'nav-item_active': isActiveRoom(room) }">
-            <h5>Chat room {{ room }}</h5>
+            <h5><span class="nav-item__text">Chat room</span> {{ room }}</h5>
           </div>
         </router-link>
       </li>
@@ -66,6 +66,28 @@ export default defineComponent({
 
     &:hover {
       background-color: #000000;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+
+      .nav-item {
+        width: 64px;
+        text-align: center;
+
+        .nav-item__text {
+          display: none;
+        }
+      }
     }
   }
 }

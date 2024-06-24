@@ -86,4 +86,10 @@ export default defineComponent({
     animation: blink 1s step-end infinite;
   }
 }
+
+@media (max-width: 640px) {
+  .title {
+    text-align: center;
+  }
+}
 </style>

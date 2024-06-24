@@ -88,4 +88,10 @@ export default defineComponent({
     list-style: none;
   }
 }
+
+@media (max-width: 640px) {
+  .chat {
+    height: calc(100vh - 64px - 56px -  48px - 8px);
+  }
+}
 </style>
